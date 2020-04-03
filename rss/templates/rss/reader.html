@@ -1,0 +1,40 @@
+{% extends 'rss/base.html' %}
+
+{% block body %}
+
+
+<div id="rss-app" class="container mt-4">
+        <ul class="nav mb-4">
+                <li class="nav-item">
+                        <a class="nav-link" href="#feeds" @click="setRoute('feeds')">Feeds</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#controls" @click="setRoute('controls')">Controls</a>
+                </li>
+        </ul>
+
+        <div class="row mb-4">
+                <div class="col-4">
+                        <input type="text" v-model="newLink" placeholder="RSS feed URL" class="form-control">
+                </div>
+                <div class="col-2">
+                        <button class="btn btn-secondary" @click="newFeed">Save</button>
+                </div>
+        </div>
+
+        <div v-if="route == 'controls'">
+                {% include 'rss/control.html' %}
+        </div>
+        <div v-if="route == 'feeds'">
+                {% include 'rss/feeds.html' %}
+        </div>
+</div>
+
+{% load static %}
+<script type="application/javascript" src="{% static 'rss/app.js' %}"></script>
+    <script type="application/javascript">
+window.addEventListener("load", function() {
+        rssApp.setup();
+});
+</script>
+{% endblock %}
